@@ -1,0 +1,51 @@
+variables:
+  majorVersion: '4.4'
+  minorVersion: $[counter('minorVersion', 1)]
+  ffmpegVersion: '$(majorVersion).$(minorVersion)'
+
+stages:
+  - stage: Setup
+    displayName: Setup
+    jobs:
+      - job:
+        displayName: Build Variables
+        pool:
+          vmImage: 'ubuntu-20.04'
+        steps:
+          # Set the build name properly.  The 'name' property won't recursively expand so hack here:
+          - bash: echo "##vso[build.updatebuildnumber]$FFMPEGVERSION"
+            displayName: Set Build Name
+
+  - stage: ffmpeg
+    displayName: Build FFmpeg
+    jobs:
+      - job: build
+        strategy:
+          matrix:
+            linux-x64:
+              folder: 'linux-x64'
+              imageName: 'ubuntu-20.04'
+            linux-arm:
+              folder: 'linux-arm'
+              imageName: 'ubuntu-20.04'
+            linux-arm64:
+              folder: 'linux-arm64'
+              imageName: 'ubuntu-20.04'
+            win-x64:
+              folder: 'win-x64'
+              imageName: 'ubuntu-20.04'
+            win-x86:
+              folder: 'win-x86'
+              imageName: 'ubuntu-20.04'
+        pool:
+          vmImage: $(imageName)
+        steps:
+          - checkout: self
+            submodules: true
+            fetchDepth: 1
+          - bash: |
+              ${FOLDER}/build.sh
+            displayName: Build
+          - publish: $(folder)/output
+            artifact: ffmpeg-$(folder)
+            displayName: Publish FFmpeg
