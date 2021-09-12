@@ -73,3 +73,60 @@ stages:
           - publish: $(folder)/output
             artifact: ffmpeg-$(folder)
             displayName: Publish FFmpeg
+
+  - stage: Package
+    jobs:
+      - job: Nuget
+        pool:
+          vmImage: 'ubuntu-20.04'
+        steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-linux-x64
+              targetPath: linux-x64/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-linux-arm64
+              targetPath: linux-arm64/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-linux-arm
+              targetPath: linux-arm/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-win-x64
+              targetPath: win-x64/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-win-x86
+              targetPath: win-x86/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-freebsd-x64
+              targetPath: freebsd-x64/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-osx-x64
+              targetPath: osx-x64/output
+          - bash: |
+              sed -i'' -e "s/<version>[0-9.*]\+<\/version>/<version>${FFMPEGVERSION}<\/version>/g" Servarr.FFprobe.nuspec
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'pack'
+              projects: 'Servarr.FFprobe.csproj'
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: nuget
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'push'
+              packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+              nuGetFeedType: 'internal'
+              publishVstsFeed: '7ab38f4e-5a57-4d70-84f4-94dd9bc5d6df/783c2dce-dbc3-4218-8816-4a5e12af4d84'
+            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
