@@ -27,4 +27,6 @@ pushd $SCRIPT_DIR
 make -j6
 make install
 
+otool -L ${OUT_DIR}/output/ffprobe
+
 popd
