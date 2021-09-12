@@ -34,23 +34,34 @@ stages:
           matrix:
             linux-x64:
               folder: 'linux-x64'
+              poolName: 'Azure Pipelines'
               imageName: 'ubuntu-20.04'
             linux-arm:
               folder: 'linux-arm'
+              poolName: 'Azure Pipelines'
               imageName: 'ubuntu-20.04'
             linux-arm64:
               folder: 'linux-arm64'
+              poolName: 'Azure Pipelines'
               imageName: 'ubuntu-20.04'
             win-x64:
               folder: 'win-x64'
+              poolName: 'Azure Pipelines'
               imageName: 'ubuntu-20.04'
             win-x86:
               folder: 'win-x86'
+              poolName: 'Azure Pipelines'
               imageName: 'ubuntu-20.04'
             osx-x64:
               folder: 'osx-x64'
+              poolName: 'Azure Pipelines'
               imageName: 'macOS-11'
+            freebsd-x64:
+              folder: 'freebsd-x64'
+              poolName: 'FreeBSD'
+              imageName:
         pool:
+          name: $(poolName)
           vmImage: $(imageName)
         steps:
           - checkout: self
