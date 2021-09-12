@@ -3,6 +3,16 @@ variables:
   minorVersion: $[counter('minorVersion', 1)]
   ffmpegVersion: '$(majorVersion).$(minorVersion)'
 
+trigger:
+  branches:
+    include:
+    - master
+
+pr:
+  branches:
+    include:
+    - master
+
 stages:
   - stage: Setup
     displayName: Setup
@@ -37,6 +47,9 @@ stages:
             win-x86:
               folder: 'win-x86'
               imageName: 'ubuntu-20.04'
+            osx-x64:
+              folder: 'osx-x64'
+              imageName: 'macOS-11'
         pool:
           vmImage: $(imageName)
         steps:
