@@ -10,6 +10,8 @@ pushd $SCRIPT_DIR
 ./configure \
     --prefix="${OUT_DIR}/build" \
     --bindir="${OUT_DIR}/output" \
+    --disable-shared \
+    --enable-static \
     --disable-ffplay \
     --disable-ffmpeg \
     --disable-encoders \
@@ -21,8 +23,8 @@ pushd $SCRIPT_DIR
     --disable-bsfs \
     --disable-network \
     --disable-doc \
-    --disable-shared \
-    --enable-static
+    --disable-audiotoolbox \
+    --disable-videotoolbox
     
 make -j6
 make install
