@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Servarr.FFprobe</id>
+    <title>FFprobe</title>
+    <version>4.4</version>
+    <authors>Servarr Team</authors>
+    <description>Static ffprobe builds for use in Servarr projects</description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/Servarr/ffmpeg-build</projectUrl>
+    <dependencies>
+      <group targetFramework="netstandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="win-x64\output\ffprobe.exe" target="runtimes\win-x64\native\netstandard2.0" />
+    <file src="win-x86\output\ffprobe.exe" target="runtimes\win-x86\native\netstandard2.0" />
+    <file src="osx-x64\output\ffprobe" target="runtimes\osx-x64\native\netstandard2.0" />
+    <file src="linux-x64\output\ffprobe" target="runtimes\linux-x64\native\netstandard2.0" />
+    <file src="linux-arm64\output\ffprobe" target="runtimes\linux-arm64\native\netstandard2.0" />
+    <file src="linux-arm\output\ffprobe" target="runtimes\linux-arm\native\netstandard2.0" />
+    <file src="freebsd-x64\output\ffprobe" target="runtimes\freebsd-x64\native\netstandard2.0" />
+  </files>
+</package>
