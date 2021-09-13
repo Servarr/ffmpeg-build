@@ -1,0 +1,109 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: action-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      matrix:
+        include:
+          - folder: 'linux-x64'
+            runs-on: 'ubuntu-20.04'
+          - folder: 'linux-arm'
+            runs-on: 'ubuntu-20.04'
+          - folder: 'linux-arm64'
+            runs-on: 'ubuntu-20.04'
+          - folder: 'win-x64'
+            runs-on: 'ubuntu-20.04'
+          - folder: 'win-x86'
+            runs-on: 'ubuntu-20.04'
+          - folder: 'osx-x64'
+            runs-on: 'macos-11'
+          - folder: 'freebsd-x64'
+            runs-on: [self-hosted,Linux,X64]
+
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - run: env
+        env:
+          FOLDER: ${{ matrix.folder }}
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: ${FOLDER}/build.sh
+        env:
+          FOLDER: ${{ matrix.folder }}
+      - name: Publish FFmpeg
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.folder }}
+          path: ${{ matrix.folder }}/output
+
+  package:
+    needs: build
+    runs-on: 'ubuntu-20.04'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux-x64
+          path: linux-x64/output
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux-arm
+          path: linux-arm/output
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux-arm64
+          path: linux-arm64/output
+      - uses: actions/download-artifact@v2
+        with:
+          name: win-x64
+          path: win-x64/output
+      - uses: actions/download-artifact@v2
+        with:
+          name: win-x86
+          path: win-x86/output
+      - uses: actions/download-artifact@v2
+        with:
+          name: osx-x64
+          path: osx-x64/output
+      - uses: actions/download-artifact@v2
+        with:
+          name: freebsd-x64
+          path: freebsd-x64/output
+      - run: |
+          ls -lR
+          sed -i'' -e "s/<version>[0-9.*]\+<\/version>/<version>${FFMPEGVERSION}<\/version>/g" Servarr.FFprobe.nuspec
+        env:
+          FFMPEGVERSION: ${{ format('4.4.{0}', github.run_number) }}
+      - run: |
+          dotnet pack -c Release Servarr.FFprobe.csproj
+          ls -lR
+      - name: Publish Nuget
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuget
+          path: ./bin/Release/*.nupkg
+      - name: Publish Nuget to GitHub registry
+        run: dotnet nuget push ./bin/Release/*.nupkg -k ${GITHUB_TOKEN} -s https://nuget.pkg.github.com/Servarr/index.json --skip-duplicate --no-symbols
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ env.FFMPEGVERSION == '0' }}
