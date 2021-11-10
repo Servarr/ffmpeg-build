@@ -7,7 +7,10 @@ OUT_DIR=$1
 
 pushd $SCRIPT_DIR
 
+export MACOSX_DEPLOYMENT_TARGET=10.13
+
 ./configure \
+    --cc=clang \
     --prefix="${OUT_DIR}/build" \
     --bindir="${OUT_DIR}/output" \
     --disable-shared \
@@ -29,6 +32,7 @@ pushd $SCRIPT_DIR
 make -j6
 make install
 
+otool -l ${OUT_DIR}/output/ffprobe
 otool -L ${OUT_DIR}/output/ffprobe
 
 popd
