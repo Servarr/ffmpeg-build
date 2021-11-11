@@ -7,10 +7,13 @@ OUT_DIR=$1
 
 pushd $SCRIPT_DIR
 
-export MACOSX_DEPLOYMENT_TARGET=10.13
+export MACOSX_DEPLOYMENT_TARGET=11.0
 
-./configure \
+CFLAGS="-arch arm64" LDFLAGS="-arch arm64" ./configure \
     --cc=clang \
+    --enable-cross-compile \
+    --arch=arm64 \
+    --disable-asm \
     --prefix="${OUT_DIR}/build" \
     --bindir="${OUT_DIR}/output" \
     --disable-shared \
