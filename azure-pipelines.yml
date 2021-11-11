@@ -56,6 +56,10 @@ stages:
               folder: 'osx-x64'
               poolName: 'Azure Pipelines'
               imageName: 'macOS-11'
+            osx-arm64:
+              folder: 'osx-arm64'
+              poolName: 'Azure Pipelines'
+              imageName: 'macOS-11'
             freebsd-x64:
               folder: 'freebsd-x64'
               poolName: 'FreeBSD'
@@ -110,6 +114,11 @@ stages:
               buildType: 'current'
               artifactName: ffmpeg-freebsd-x64
               targetPath: freebsd-x64/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-osx-arm64
+              targetPath: osx-arm64/output
           - task: DownloadPipelineArtifact@2
             inputs:
               buildType: 'current'
