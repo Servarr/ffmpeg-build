@@ -15,6 +15,7 @@ export MACOSX_DEPLOYMENT_TARGET=10.13
     --bindir="${OUT_DIR}/output" \
     --disable-shared \
     --enable-static \
+    --disable-lzma \
     --disable-ffplay \
     --disable-ffmpeg \
     --disable-encoders \

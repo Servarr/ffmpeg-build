@@ -18,6 +18,7 @@ CFLAGS="-arch arm64" LDFLAGS="-arch arm64" ./configure \
     --bindir="${OUT_DIR}/output" \
     --disable-shared \
     --enable-static \
+    --disable-lzma \
     --disable-ffplay \
     --disable-ffmpeg \
     --disable-encoders \
