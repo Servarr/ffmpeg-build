@@ -1,5 +1,5 @@
 variables:
-  majorVersion: '4.4.1'
+  majorVersion: '5.0.0'
   minorVersion: $[counter('minorVersion', 1)]
   ffmpegVersion: '$(majorVersion).$(minorVersion)'
 
