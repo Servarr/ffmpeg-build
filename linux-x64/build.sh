@@ -10,8 +10,10 @@ mkdir -p $OUT_DIR
 
 docker build -t ffmpeg-linux-x64 - < ${SCRIPT_DIR}/Dockerfile
 
+cp "${SCRIPT_DIR}/../common.sh" "${SOURCE_DIR}"
 cp "${SCRIPT_DIR}/compile.sh" "${SOURCE_DIR}"
 
 docker run --rm --rm -v "${SOURCE_DIR}:/ffmpeg/sources" -v "${OUT_DIR}:/ffmpeg/bin" ffmpeg-linux-x64 /ffmpeg/sources/compile.sh
 
 rm "${SOURCE_DIR}/compile.sh"
+rm "${SOURCE_DIR}/common.sh"

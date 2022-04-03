@@ -7,28 +7,20 @@ OUT_DIR=$1
 
 pushd $SCRIPT_DIR
 
+source common.sh
+
 export MACOSX_DEPLOYMENT_TARGET=10.13
 
-./configure \
-    --cc=clang \
-    --prefix="${OUT_DIR}/build" \
-    --bindir="${OUT_DIR}/output" \
-    --disable-shared \
-    --enable-static \
-    --disable-lzma \
-    --disable-ffplay \
-    --disable-ffmpeg \
-    --disable-encoders \
-    --disable-filters \
-    --disable-devices \
-    --disable-muxers \
-    --disable-protocols \
-    --enable-protocol=file \
-    --disable-bsfs \
-    --disable-network \
-    --disable-doc \
-    --disable-audiotoolbox \
+FFMPEG_CONFIGURE_FLAGS+=(
+    --cc=clang
+    --disable-shared
+    --enable-static
+    --disable-lzma
+    --disable-audiotoolbox
     --disable-videotoolbox
+)
+
+./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
     
 make -j6
 make install
