@@ -12,4 +12,4 @@ docker build -t ffmpeg-win - < ${SCRIPT_DIR}/Dockerfile
 
 cp "${SCRIPT_DIR}/compile.sh" "${SOURCE_DIR}"
 
-docker run -v "${SOURCE_DIR}:/ffmpeg/sources" -v "${OUT_DIR}:/ffmpeg/bin" ffmpeg-win /ffmpeg/sources/compile.sh
+docker run --rm -v "${SOURCE_DIR}:/ffmpeg/sources" -v "${OUT_DIR}:/ffmpeg/bin" ffmpeg-win /ffmpeg/sources/compile.sh
