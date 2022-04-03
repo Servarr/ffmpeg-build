@@ -13,14 +13,16 @@ export MACOSX_DEPLOYMENT_TARGET=10.13
 
 FFMPEG_CONFIGURE_FLAGS+=(
     --cc=clang
-    --disable-shared
-    --enable-static
-    --disable-lzma
-    --disable-audiotoolbox
-    --disable-videotoolbox
+    --disable-autodetect
+    --enable-appkit
+    --enable-avfoundation
+    --enable-coreimage
+    --enable-metal
+    --enable-zlib
 )
 
-./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
+ARGS=("${NATIVE_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
+./configure "${ARGS[@]}"
     
 make -j6
 make install

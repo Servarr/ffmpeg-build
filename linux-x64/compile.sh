@@ -13,7 +13,8 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --extra-libs="-lpthread -lm"
 )
 
-./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
+ARGS=("${DOCKER_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
+./configure "${ARGS[@]}"
 
 make -j6
 make install

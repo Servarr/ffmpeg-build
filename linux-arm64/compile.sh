@@ -12,12 +12,14 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --arch=aarch64
     --target-os=linux
     --cross-prefix=aarch64-linux-gnu-
+    --pkg-config=pkg-config
     --pkg-config-flags="--static"
     --extra-ldexeflags="-static"
     --extra-libs="-lpthread -lm"
 )
 
-./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
+ARGS=("${DOCKER_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
+PKG_CONFIG_PATH=/usr/aarch64-linux-gnu/lib/pkgconfig ./configure "${ARGS[@]}"
 
 make -j6
 make install
