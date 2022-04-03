@@ -9,8 +9,10 @@ brew install automake sdl shtool nasm
 
 mkdir -p "${SCRIPT_DIR}/output" "${SCRIPT_DIR}/build"
 
+cp "${SCRIPT_DIR}/../common.sh" "${SOURCE_DIR}"
 cp "${SCRIPT_DIR}/compile.sh" "${SOURCE_DIR}"
 
 ${SOURCE_DIR}/compile.sh $SCRIPT_DIR
 
 rm "${SOURCE_DIR}/compile.sh"
+rm "${SOURCE_DIR}/common.sh"

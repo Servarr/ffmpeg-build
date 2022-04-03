@@ -8,8 +8,12 @@ OUT_DIR="${SCRIPT_DIR}/output"
 
 mkdir -p $OUT_DIR
 
-docker build -t ffmpeg-win - < ${SCRIPT_DIR}/Dockerfile
+docker build -t ffmpeg-win-x86 - < ${SCRIPT_DIR}/Dockerfile
 
+cp "${SCRIPT_DIR}/../common.sh" "${SOURCE_DIR}"
 cp "${SCRIPT_DIR}/compile.sh" "${SOURCE_DIR}"
 
-docker run --rm -v "${SOURCE_DIR}:/ffmpeg/sources" -v "${OUT_DIR}:/ffmpeg/bin" ffmpeg-win /ffmpeg/sources/compile.sh
+docker run --rm -v "${SOURCE_DIR}:/ffmpeg/sources" -v "${OUT_DIR}:/ffmpeg/bin" ffmpeg-win-x86 /ffmpeg/sources/compile.sh
+
+rm "${SOURCE_DIR}/compile.sh"
+rm "${SOURCE_DIR}/common.sh"
