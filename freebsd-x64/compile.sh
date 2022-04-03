@@ -19,7 +19,8 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --cxx=/usr/bin/clang-cpp
 )
 
-./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
+ARGS=("${NATIVE_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
+./configure "${ARGS[@]}"
 
 gmake -j6
 gmake install

@@ -9,20 +9,13 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     git-core \
-    libass-dev \
-    libfreetype6-dev \
-    libgnutls28-dev \
     libtool \
-    libvorbis-dev \
     meson \
     ninja-build \
     pkg-config \
-    texinfo \
     wget \
     yasm \
     zlib1g-dev \
-    libunistring-dev \
-    libaom-dev \
     nasm \
     gcc-arm-linux-gnueabihf
 

@@ -8,7 +8,7 @@ OUT_DIR="${SCRIPT_DIR}/output"
 
 mkdir -p $OUT_DIR
 
-docker build -t ffmpeg-linux-arm64 - < ${SCRIPT_DIR}/Dockerfile
+docker build -t ffmpeg-linux-arm64 ${SCRIPT_DIR} < ${SCRIPT_DIR}/Dockerfile
 
 cp "${SCRIPT_DIR}/../common.sh" "${SOURCE_DIR}"
 cp "${SCRIPT_DIR}/compile.sh" "${SOURCE_DIR}"

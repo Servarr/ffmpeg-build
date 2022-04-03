@@ -16,14 +16,16 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --enable-cross-compile
     --arch=arm64
     --disable-asm
-    --disable-shared
-    --enable-static
-    --disable-lzma
-    --disable-audiotoolbox
-    --disable-videotoolbox
+    --disable-autodetect
+    --enable-appkit
+    --enable-avfoundation
+    --enable-coreimage
+    --enable-metal
+    --enable-zlib
 )
 
-CFLAGS="-arch arm64" LDFLAGS="-arch arm64" ./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
+ARGS=("${NATIVE_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
+CFLAGS="-arch arm64" LDFLAGS="-arch arm64" ./configure "${ARGS[@]}"
 
 make -j6
 make install

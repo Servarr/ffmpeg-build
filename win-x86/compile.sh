@@ -12,12 +12,16 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --arch=i686
     --target-os=mingw32
     --cross-prefix=i686-w64-mingw32-
+    --pkg-config=pkg-config
+    --disable-d3d11va
+    --disable-dxva2
     --pkg-config-flags="--static"
     --extra-ldexeflags="-static"
     --extra-libs="-lpthread -lm"
 )
 
-./configure "${FFMPEG_CONFIGURE_FLAGS[@]}"
+ARGS=("${DOCKER_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
+PKG_CONFIG_PATH=/usr/i686-w64-mingw32/lib/pkgconfig ./configure "${ARGS[@]}"
 
 make -j6
 make install
