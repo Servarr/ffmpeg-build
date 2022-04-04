@@ -34,4 +34,9 @@ otool -l ${OUT_DIR}/output/ffprobe
 otool -L ${OUT_DIR}/output/ffprobe
 file ${OUT_DIR}/output/ffprobe
 
+dylibbundler -b -x ${OUT_DIR}/output/ffprobe -d ${OUT_DIR}/output -p @executable_path
+
+ls -lh ${OUT_DIR}/output
+otool -L ${OUT_DIR}/output/ffprobe
+
 popd

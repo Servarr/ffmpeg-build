@@ -13,6 +13,7 @@ NATIVE_DIR_FLAGS=(
 )
 
 FFMPEG_CONFIGURE_FLAGS=(
+    --enable-libdav1d
     --disable-iconv
     --disable-bzlib
     --disable-v4l2-m2m
