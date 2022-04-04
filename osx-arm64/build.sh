@@ -5,7 +5,12 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 SOURCE_DIR="${SCRIPT_DIR}/../ffmpeg"
 
-brew install automake sdl shtool nasm
+brew install automake shtool nasm dylibbundler
+
+# The arm64 version of dav1d to link against
+response=$(brew fetch --force --bottle-tag=arm64_big_sur dav1d | grep "Downloaded to")
+parsed=${response#Downloaded to: }
+brew install -v "$parsed"
 
 mkdir -p "${SCRIPT_DIR}/output" "${SCRIPT_DIR}/build"
 

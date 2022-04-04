@@ -20,3 +20,10 @@ RUN apt-get update && apt-get install -y \
     nasm
 
 RUN mkdir -p /ffmpeg/sources /ffmpeg/bin /ffmpeg/build
+
+RUN git clone --depth 1 --branch 1.0.0 https://code.videolan.org/videolan/dav1d.git /dav1d && \
+mkdir -p /dav1d/build && \
+cd /dav1d/build && \
+meson setup -Denable_tools=false -Denable_tests=false --default-library=static --prefix=/usr/x86_64-w64-mingw32 --libdir=/usr/x86_64-w64-mingw32/lib --cross-file=../package/crossfiles/x86_64-w64-mingw32.meson .. && \
+ninja && \
+ninja install
