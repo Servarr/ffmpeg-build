@@ -13,8 +13,6 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --target-os=mingw32
     --cross-prefix=x86_64-w64-mingw32-
     --pkg-config=pkg-config
-    --disable-d3d11va
-    --disable-dxva2
     --pkg-config-flags="--static"
     --extra-ldexeflags="-static"
     --extra-libs="-lpthread -lm"

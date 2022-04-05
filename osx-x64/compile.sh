@@ -13,12 +13,6 @@ export MACOSX_DEPLOYMENT_TARGET=10.13
 
 FFMPEG_CONFIGURE_FLAGS+=(
     --cc=clang
-    --disable-autodetect
-    --enable-appkit
-    --enable-avfoundation
-    --enable-coreimage
-    --enable-metal
-    --enable-zlib
 )
 
 ARGS=("${NATIVE_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")

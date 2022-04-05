@@ -16,12 +16,6 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --enable-cross-compile
     --arch=arm64
     --disable-asm
-    --disable-autodetect
-    --enable-appkit
-    --enable-avfoundation
-    --enable-coreimage
-    --enable-metal
-    --enable-zlib
 )
 
 ARGS=("${NATIVE_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")

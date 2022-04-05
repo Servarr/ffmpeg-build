@@ -13,11 +13,14 @@ NATIVE_DIR_FLAGS=(
 )
 
 FFMPEG_CONFIGURE_FLAGS=(
-    --enable-libdav1d
+    # System libraries
+    --disable-autodetect
     --disable-iconv
-    --disable-bzlib
-    --disable-v4l2-m2m
 
+    # External libraries
+    --enable-libdav1d
+
+    # FFMpeg components
     --disable-programs
     --enable-ffprobe
 
@@ -26,10 +29,12 @@ FFMPEG_CONFIGURE_FLAGS=(
     --disable-swscale
     --disable-postproc
     --disable-avfilter
-    
+
+    # FFMpeg options - disable all
     --disable-network
     --disable-everything
 
+    # FFMpeg options - enable what we need
     --enable-protocol=file
     --enable-demuxers
     --enable-parsers
