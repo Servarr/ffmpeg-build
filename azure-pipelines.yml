@@ -36,6 +36,10 @@ stages:
               folder: 'linux-x64'
               poolName: 'Azure Pipelines'
               imageName: 'ubuntu-20.04'
+            linux-x86:
+              folder: 'linux-x86'
+              poolName: 'Azure Pipelines'
+              imageName: 'ubuntu-20.04'
             linux-arm:
               folder: 'linux-arm'
               poolName: 'Azure Pipelines'
@@ -89,6 +93,11 @@ stages:
               buildType: 'current'
               artifactName: ffmpeg-linux-x64
               targetPath: linux-x64/output
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: ffmpeg-linux-x86
+              targetPath: linux-x86/output
           - task: DownloadPipelineArtifact@2
             inputs:
               buildType: 'current'
