@@ -1,0 +1,18 @@
+[binaries]
+c = 'arm-linux-gnueabihf-gcc'
+cpp = 'arm-linux-gnueabihf-g++'
+ar = 'arm-linux-gnueabihf-ar'
+strip = 'arm-linux-gnueabihf-strip'
+ld = 'arm-linux-gnueabihf-ld'
+
+[properties]
+c_args = ['-mfpu=vfpv3-d16']
+c_link_args = ['-mfpu=vfpv3-d16']
+cpp_args = ['-mfpu=vfpv3-d16']
+cpp_link_args = ['-mfpu=vfpv3-d16']
+
+[host_machine]
+system = 'linux'
+cpu_family = 'arm'
+cpu = 'armv7'
+endian = 'little'

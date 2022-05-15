@@ -23,6 +23,7 @@
     <file src="linux-x86\output\ffprobe" target="runtimes\linux-x86\native\netstandard2.0" />
     <file src="linux-arm64\output\ffprobe" target="runtimes\linux-arm64\native\netstandard2.0" />
     <file src="linux-arm\output\ffprobe" target="runtimes\linux-arm\native\netstandard2.0" />
+    <file src="linux-arm-vfpv3d16\output\ffprobe" target="runtimes\linux-arm-vfpv3d16\native\netstandard2.0" />
     <file src="freebsd-x64\output\ffprobe" target="runtimes\freebsd-x64\native\netstandard2.0" />
   </files>
 </package>
