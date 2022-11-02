@@ -70,7 +70,7 @@ stages:
               imageName: 'macOS-11'
             freebsd-x64:
               folder: 'freebsd-x64'
-              poolName: 'FreeBSD 12'
+              poolName: 'FreeBSD'
               imageName:
         pool:
           name: $(poolName)
