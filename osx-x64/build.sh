@@ -5,7 +5,7 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 SOURCE_DIR="${SCRIPT_DIR}/../ffmpeg"
 
-brew install automake shtool nasm dav1d dylibbundler
+brew install automake shtool nasm libbluray dav1d dylibbundler
 
 mkdir -p "${SCRIPT_DIR}/output" "${SCRIPT_DIR}/build"
 

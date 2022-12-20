@@ -18,6 +18,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --disable-iconv
 
     # External libraries
+    --enable-libbluray
     --enable-libdav1d
 
     # FFMpeg components
@@ -35,6 +36,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --disable-everything
 
     # FFMpeg options - enable what we need
+    --enable-protocol=bluray
     --enable-protocol=file
     --enable-demuxers
     --enable-parsers
