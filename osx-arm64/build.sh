@@ -14,6 +14,10 @@ brew install -v "$parsed"
 
 mkdir -p "${SCRIPT_DIR}/output" "${SCRIPT_DIR}/build"
 
+brew cat libbluray > "${SCRIPT_DIR}/build/libbluray.rb"
+sed -i '' -e 's/%W\[/&--without-fontconfig --without-freetype /; s/depends_on "fontconfig"/#&/; s/depends_on "freetype"/#&/' "${SCRIPT_DIR}/build/libbluray.rb"
+brew reinstall --build-from-source "${SCRIPT_DIR}/build/libbluray.rb"
+
 cp "${SCRIPT_DIR}/../common.sh" "${SOURCE_DIR}"
 cp "${SCRIPT_DIR}/compile.sh" "${SOURCE_DIR}"
 
