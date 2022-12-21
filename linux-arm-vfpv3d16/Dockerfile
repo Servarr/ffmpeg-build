@@ -48,9 +48,9 @@ CFLAGS=-mfpu=vfpv3-d16 ./configure --host=arm-linux-gnueabihf --prefix=/usr/arm-
 make && \
 make install
 
-RUN git clone --depth 1 --recurse-submodules --branch 1.3.4 https://code.videolan.org/videolan/libbluray.git /libbluray && \
+RUN mkdir /libbluray && \
+wget -qO- https://download.videolan.org/videolan/libbluray/1.3.4/libbluray-1.3.4.tar.bz2 | tar xj --strip-components=1 -C /libbluray && \
 cd /libbluray && \
-./bootstrap && \
 CFLAGS=-mfpu=vfpv3-d16 PKG_CONFIG_PATH=/usr/arm-linux-gnueabihf/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf --disable-shared --disable-dependency-tracking --disable-silent-rules --disable-bdjava-jar --disable-examples --without-external-libudfread --without-freetype --without-fontconfig && \
 make && \
 make install
