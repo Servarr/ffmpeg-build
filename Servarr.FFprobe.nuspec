@@ -16,6 +16,7 @@
     <file src="win-x64\output\ffprobe.exe" target="runtimes\win-x64\native\netstandard2.0" />
     <file src="win-x86\output\ffprobe.exe" target="runtimes\win-x86\native\netstandard2.0" />
     <file src="osx-x64\output\ffprobe" target="runtimes\osx-x64\native\netstandard2.0" />
+    <file src="osx-x64\output\libbluray.2.dylib" target="runtimes\osx-x64\native\netstandard2.0" />
     <file src="osx-x64\output\libdav1d.6.dylib" target="runtimes\osx-x64\native\netstandard2.0" />
     <file src="osx-arm64\output\ffprobe" target="runtimes\osx-arm64\native\netstandard2.0" />
     <file src="osx-arm64\output\libdav1d.6.dylib" target="runtimes\osx-arm64\native\netstandard2.0" />
