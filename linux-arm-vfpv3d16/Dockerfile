@@ -34,23 +34,9 @@ meson setup -Denable_tools=false -Denable_tests=false --default-library=static -
 ninja -v && \
 ninja install
 
-RUN mkdir /zlib && \
-wget -qO- https://zlib.net/zlib-1.2.13.tar.gz | tar xz --strip-components=1 -C /zlib && \
-cd /zlib && \
-CHOST=arm-linux-gnueabihf CFLAGS=-mfpu=vfpv3-d16 ./configure --prefix=/usr/arm-linux-gnueabihf --static && \
-make && \
-make install
-
-RUN mkdir /libxml2 && \
-wget -qO- https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.1.tar.xz | tar xJ --strip-components=1 -C /libxml2 && \
-cd /libxml2 && \
-CFLAGS=-mfpu=vfpv3-d16 ./configure --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf --disable-shared --disable-dependency-tracking --disable-silent-rules --without-python && \
-make && \
-make install
-
 RUN mkdir /libbluray && \
 wget -qO- https://download.videolan.org/videolan/libbluray/1.3.4/libbluray-1.3.4.tar.bz2 | tar xj --strip-components=1 -C /libbluray && \
 cd /libbluray && \
-CFLAGS=-mfpu=vfpv3-d16 PKG_CONFIG_PATH=/usr/arm-linux-gnueabihf/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf --disable-shared --disable-dependency-tracking --disable-silent-rules --disable-bdjava-jar --disable-examples --without-external-libudfread --without-freetype --without-fontconfig && \
+CFLAGS=-mfpu=vfpv3-d16 PKG_CONFIG_PATH=/usr/arm-linux-gnueabihf/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf --disable-shared --disable-dependency-tracking --disable-silent-rules --disable-bdjava-jar --disable-examples --without-external-libudfread --without-libxml2 --without-freetype --without-fontconfig && \
 make && \
 make install
