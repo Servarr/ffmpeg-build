@@ -1,5 +1,5 @@
 variables:
-  majorVersion: '5.1.4'
+  majorVersion: '5.1.10'
   minorVersion: $[counter('minorVersion', 1)]
   ffmpegVersion: '$(majorVersion).$(minorVersion)'
 
@@ -19,8 +19,9 @@ stages:
     jobs:
       - job:
         displayName: Build Variables
+        container: ubuntu:20.04
         pool:
-          vmImage: 'ubuntu-20.04'
+          vmImage: 'ubuntu-latest'
         steps:
           # Set the build name properly.  The 'name' property won't recursively expand so hack here:
           - bash: echo "##vso[build.updatebuildnumber]$FFMPEGVERSION"
@@ -33,47 +34,55 @@ stages:
         strategy:
           matrix:
             linux-x64:
+              container: ubuntu:20.04
               folder: 'linux-x64'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             linux-x86:
+              container: ubuntu:20.04
               folder: 'linux-x86'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             linux-arm:
+              container: ubuntu:20.04
               folder: 'linux-arm'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             linux-arm-vfpv3d16:
+              container: ubuntu:20.04
               folder: 'linux-arm-vfpv3d16'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             linux-arm64:
+              container: ubuntu:20.04
               folder: 'linux-arm64'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             win-x64:
+              container: ubuntu:20.04
               folder: 'win-x64'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             win-x86:
+              container: ubuntu:20.04
               folder: 'win-x86'
               poolName: 'Azure Pipelines'
-              imageName: 'ubuntu-20.04'
+              imageName: 'ubuntu-latest'
             osx-x64:
               folder: 'osx-x64'
               poolName: 'Azure Pipelines'
-              imageName: 'macOS-11'
+              imageName: 'macOS-14'
             osx-arm64:
               folder: 'osx-arm64'
               poolName: 'Azure Pipelines'
-              imageName: 'macOS-11'
+              imageName: 'macOS-14'
             freebsd-x64:
               folder: 'freebsd-x64'
               poolName: 'FreeBSD'
               imageName:
         pool:
           name: $(poolName)
+          container: $(container)
           vmImage: $(imageName)
         steps:
           - checkout: self
@@ -90,7 +99,7 @@ stages:
     jobs:
       - job: Nuget
         pool:
-          vmImage: 'ubuntu-20.04'
+          vmImage: 'ubuntu-latest'
         steps:
           - task: DownloadPipelineArtifact@2
             inputs:
