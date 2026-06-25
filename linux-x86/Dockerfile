@@ -33,3 +33,10 @@ cd /dav1d/build && \
 meson setup -Denable_tools=false -Denable_tests=false --default-library=static --prefix=/usr/i686-linux-gnu --libdir=/usr/i686-linux-gnu/lib --cross-file=/root/x86.txt -- .. && \
 ninja && \
 ninja install
+
+RUN mkdir /libbluray && \
+wget -qO- https://download.videolan.org/videolan/libbluray/1.3.4/libbluray-1.3.4.tar.bz2 | tar xj --strip-components=1 -C /libbluray && \
+cd /libbluray && \
+PKG_CONFIG_PATH=/usr/i686-linux-gnu/lib/pkgconfig ./configure --host=i686-linux-gnu --prefix=/usr/i686-linux-gnu --disable-shared --disable-dependency-tracking --disable-silent-rules --disable-bdjava-jar --disable-examples --without-external-libudfread --without-libxml2 --without-freetype --without-fontconfig && \
+make && \
+make install

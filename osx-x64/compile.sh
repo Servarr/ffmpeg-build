@@ -16,7 +16,7 @@ FFMPEG_CONFIGURE_FLAGS+=(
 )
 
 ARGS=("${NATIVE_DIR_FLAGS[@]}" "${FFMPEG_CONFIGURE_FLAGS[@]}")
-./configure "${ARGS[@]}"
+LDFLAGS="-framework CoreFoundation -framework DiskArbitration" PKG_CONFIG_PATH="${OUT_DIR}/build/lib/pkgconfig" ./configure "${ARGS[@]}"
     
 make -j6
 make install

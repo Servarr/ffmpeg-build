@@ -29,3 +29,10 @@ cd /dav1d/build && \
 meson setup -Denable_tools=false -Denable_tests=false --default-library=static --prefix=/usr/arm-linux-gnueabihf --libdir=/usr/arm-linux-gnueabihf/lib --cross-file=/root/armhf.txt -- .. && \
 ninja && \
 ninja install
+
+RUN mkdir /libbluray && \
+wget -qO- https://download.videolan.org/videolan/libbluray/1.3.4/libbluray-1.3.4.tar.bz2 | tar xj --strip-components=1 -C /libbluray && \
+cd /libbluray && \
+PKG_CONFIG_PATH=/usr/arm-linux-gnueabihf/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf --disable-shared --disable-dependency-tracking --disable-silent-rules --disable-bdjava-jar --disable-examples --without-external-libudfread --without-libxml2 --without-freetype --without-fontconfig && \
+make && \
+make install
